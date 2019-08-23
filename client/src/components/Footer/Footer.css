@@ -1,0 +1,18 @@
+.inline {
+  display: inline;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: lightgray;
+  position: absolute;
+  text-align: center;
+  min-width: 100vw;
+  overflow: hidden;
+  height: 6em;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
