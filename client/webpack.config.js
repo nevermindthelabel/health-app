@@ -1,4 +1,6 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 const rules = [
   {
     test: /\.tsx?/,
@@ -13,12 +15,19 @@ module.exports = {
   entry: './src/index.tsx',
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   module: { rules },
-  resolve: { extensions: [ '.ts', '.tsx', '.js']},
+  resolve: { extensions: ['.ts', '.tsx', '.js'] },
   devServer: {
     contentBase: './',
-    port: 3000
-  }
-}
+    port: 3000,
+    historyApiFallback: true
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './index.html'
+    })
+  ]
+};
