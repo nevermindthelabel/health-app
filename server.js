@@ -3,6 +3,7 @@ const express = require('express');
 const PORT = process.env.PORT || 3001;
 const mongoose = require('mongoose');
 const db = process.env.mongoURI;
+const routes = require('./routes');
 
 const app = express();
 
@@ -17,8 +18,6 @@ connectDB();
 
 app.use(express.json({ extended: false }));
 
-app.get('/', (req, res) => {
-  res.send('Home Route Works');
-});
+app.use(routes);
 
 app.listen(PORT, () => console.log(`Server 👂 on port http://localhost:${PORT}`));
