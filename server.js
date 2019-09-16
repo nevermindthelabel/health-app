@@ -12,6 +12,7 @@ const connectDB = () => {
     .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('DB connected'))
     .catch(error => console.error(error.message));
+    mongoose.set('useCreateIndex', true);
 };
 
 connectDB();
