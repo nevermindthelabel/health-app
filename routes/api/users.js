@@ -3,6 +3,7 @@ const router = require('express').Router();
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const auth = require('../../auth');
 
 const User = require('../../models/User');
 
@@ -112,7 +113,7 @@ router.post(
   }
 );
 
-router.get('/all', async (req, res) => {
+router.get('/all', auth, async (req, res) => {
   try {
     const users = await User.find().select('-password');
     res.json(users);
