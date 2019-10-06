@@ -1,15 +1,22 @@
 const mongoose = require('mongoose');
 
 const MedicationSchema = new mongoose.Schema({
-  medication: {
+  name: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  manufacturer: {
     type: String,
     required: true
   },
   dosage: {
-    type: Number,
-    required: true
+    type: Number
   },
   dr: {
+    type: String
+  },
+  sideEffects: {
     type: String
   }
 });
