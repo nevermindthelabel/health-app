@@ -16,9 +16,11 @@ const MedicationSchema = new mongoose.Schema({
   dr: {
     type: String
   },
-  sideEffects: {
-    type: String
-  }
+  sideEffects: [
+    {
+      type: String
+    }
+  ]
 });
 
 const Medication = mongoose.model('medication', MedicationSchema);
