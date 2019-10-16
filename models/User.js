@@ -18,9 +18,18 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  medications: [{
-    type: String
-  }]
+  medications: {
+    name: [
+      {
+        type: String
+      }
+    ],
+    sideEffects: [
+      {
+        type: String
+      }
+    ]
+  }
 });
 
 const User = mongoose.model('user', UserSchema);
