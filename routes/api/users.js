@@ -4,7 +4,6 @@ const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const auth = require('../../auth');
-
 const User = require('../../models/User');
 
 const secret = process.env.jwtSecret;
@@ -60,7 +59,8 @@ router.post(
 
       jwt.sign(payload, secret, { expiresIn: 3600 }, (error, token) => {
         if (error) throw error;
-        res.json({ token });
+        res.cookie('sessionid', token, { httpOnly: true, secure: true });
+        res.status(200).json({ token });
       });
     } catch (err) {
       console.error(err.message);
@@ -83,7 +83,7 @@ router.post(
     const { email, password } = req.body;
 
     try {
-      let user = await User.findOne({ email });
+      const user = await User.findOne({ email });
       if (!user) {
         return res.status(400).json({ errors: [{ msg: 'Invalid username or password' }] });
       }
@@ -101,10 +101,11 @@ router.post(
           }
         }
       };
-      console.log(user);
+
       jwt.sign(payload, secret, { expiresIn: 3600 }, (error, token) => {
         if (error) throw error;
         res.json({ token });
+        console.log(token);
       });
     } catch (error) {
       console.error(error.message);
@@ -124,7 +125,6 @@ router.get('/all', auth, async (req, res) => {
 });
 
 router.get('/', auth, async (req, res) => {
-
   try {
     const user = await User.findById(req.user.id).select('-password');
     res.json(user);
