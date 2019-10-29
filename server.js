@@ -24,7 +24,7 @@ connectDB();
 app.use(cookieParser(process.env.secretCookie));
 
 app.use(session({
-  secret: 'keyboard cat',
+  secret: process.env.session,
   resave: false,
   saveUninitialized: true,
   cookie: { secure: true }
@@ -34,11 +34,6 @@ app.use(express.json({ extended: false }));
 app.use(cors());
 
 app.use(routes);
-
-app.use('/', (req, res) => {
-  res.send('made it');
-  console.log(req.session);
-});
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
